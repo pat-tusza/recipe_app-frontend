@@ -27,7 +27,11 @@ function App() {
       body: JSON.stringify(accountInfo)
     })
       .then(r=>r.json())
-      .then(console.log)
+      .then(result => {
+        if(result != "false"){
+          setIsLoggedIn(true)
+        }
+      })
   }
 
   return (
