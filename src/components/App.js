@@ -28,7 +28,8 @@ function App() {
     })
       .then(r=>r.json())
       .then(result => {
-        if(result != "false"){
+
+        if(result != false){
           setIsLoggedIn(true)
         }
       })
