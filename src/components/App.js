@@ -18,6 +18,18 @@ function App() {
       .then(succesfulLogin=>succesfulLogin ? setIsLoggedIn(true): null)
   }
 
+  const createAccount = accountInfo => {
+    fetch("http://localhost:3000/create_account", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(accountInfo)
+    })
+      .then(r=>r.json())
+      .then(console.log)
+  }
+
   return (
     <div>
       {isLoggedIn ? 
@@ -25,7 +37,7 @@ function App() {
        <RecipeContainer />
        <IngredientContainer />
       </> :
-        <LoginForm handleLogin={handleLogin} /> 
+        <LoginForm handleLogin={handleLogin} handleCreateAccount={createAccount}/> 
       }
     </div>
   );
