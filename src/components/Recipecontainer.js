@@ -8,13 +8,12 @@ const RecipeContainer = () =>{
         fetch("http://localhost:3000/recipes")
             .then(r=> r.json())
             .then(data=>{
-                console.log(data)
                 setAllRecipes(data)
                 setRecipesToDisplay(data)
             })
     }, [])
 
-    const toDisplay = recipesToDisplay.map((recipe) => <RecipeCard recipe={recipe} />)
+    const toDisplay = recipesToDisplay.map((recipe) => <RecipeCard key= {recipe.name} recipe={recipe} />)
     return(
         <>
             {toDisplay}
