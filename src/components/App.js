@@ -28,9 +28,12 @@ function App() {
     })
       .then(r=>r.json())
       .then(result => {
-
-        if(result != false){
+        console.log(result)
+        if(Number.isFinite(result)){
           setIsLoggedIn(true)
+        }
+        else{
+          console.log(result)
         }
       })
   }
