@@ -2,9 +2,12 @@ import React, { useState } from "react"
 import RecipeContainer from "./Recipecontainer"
 import IngredientContainer from "./IngredientContainer"
 import LoginForm from "./LoginForm"
+import { Switch, Route, useHistory } from "react-router-dom";
+import DeleteAccountConfirm from "./DeleteAccount.js"
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUserId, setCurrentUserId] = useState(0);
+  const history = useHistory();
 
   const handleLogin = formInfo => {
     fetch("http://localhost:3000/login",{
@@ -15,7 +18,14 @@ function App() {
       body: JSON.stringify(formInfo)
     })
       .then(r=> r.json())
-      .then(succesfulLogin=>succesfulLogin ? setIsLoggedIn(true): null)
+      .then(result => {
+        if (Number.isFinite(result)){
+          setCurrentUserId(result);
+          history.push("/main");
+        }else{
+          console.log(result)
+        }
+      })
   }
 
   const createAccount = accountInfo => {
@@ -27,26 +37,33 @@ function App() {
       body: JSON.stringify(accountInfo)
     })
       .then(r=>r.json())
-      .then(result => {
-        console.log(result)
-        if(Number.isFinite(result)){
-          setIsLoggedIn(true)
-        }
-        else{
-          console.log(result)
-        }
-      })
+      .then(result => Number.isFinite(result) ? history.push("/main"): console.log(result))
+  }
+
+  const deleteAccount = e => {
+    history.push("/deleteAccount")
+  }
+
+  const actuallyDelete = e => {
+    fetch(`http://localhost:3000/delete_account/${currentUserId}`, {
+      method: "DELETE"
+    })
   }
 
   return (
     <div>
-      {isLoggedIn ? 
-       <>
-       <RecipeContainer />
-       <IngredientContainer />
-      </> :
-        <LoginForm handleLogin={handleLogin} handleCreateAccount={createAccount}/> 
-      }
+      <Switch>
+        <Route exact path="/">
+          <LoginForm handleDelete={deleteAccount} handleLogin={handleLogin} handleCreateAccount={createAccount}/>
+        </Route>
+        <Route exact path="/delete_account">
+          <DeleteAccountConfirm handleDelete={actuallyDelete}/>
+        </Route>
+        <Route exact path="/main">
+          <RecipeContainer />
+          <IngredientContainer />
+        </Route>
+      </Switch>
     </div>
   );
 }

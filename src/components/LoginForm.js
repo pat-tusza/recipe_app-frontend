@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 
-const LoginForm = ({handleLogin, handleCreateAccount}) => {
+const LoginForm = ({handleLogin, handleCreateAccount, handleDelete}) => {
     const [formInfo, setFormInfo] = useState({
         username: "",
         password: ""
@@ -49,6 +49,7 @@ const LoginForm = ({handleLogin, handleCreateAccount}) => {
                 <input type="text" name="avatar" placeholder="Avatar pic link" onChange={handleCreateChange} value={createFormInfo.avatar}/>
                 <input type="submit" value="Create Account"/>
             </form>
+            <button onClick={handleDelete}>Delete Account</button>
         </>
     )
 }
