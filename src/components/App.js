@@ -6,7 +6,7 @@ import { Switch, Route, useHistory } from "react-router-dom";
 import DeleteAccountConfirm from "./DeleteAccount.js"
 
 function App() {
-  const [currentUserId, setCurrentUserId] = useState(0);
+  const [currentUser, setCurrentUser] = useState(null);
   const history = useHistory();
 
   const handleLogin = formInfo => {
@@ -19,8 +19,8 @@ function App() {
     })
       .then(r=> r.json())
       .then(result => {
-        if (Number.isFinite(result)){
-          setCurrentUserId(result);
+        if (result.username){
+          setCurrentUser(result);
           history.push("/main");
         }else{
           console.log(result)
@@ -37,7 +37,14 @@ function App() {
       body: JSON.stringify(accountInfo)
     })
       .then(r=>r.json())
-      .then(result => Number.isFinite(result) ? history.push("/main"): console.log(result))
+      .then(result => {
+        if (result.username){
+          setCurrentUser(result);
+          history.push("/main");
+        }else{
+          console.log(result)
+        }
+      })
   }
 
   const deleteAccount = e => {
@@ -45,7 +52,7 @@ function App() {
   }
 
   const actuallyDelete = e => {
-    fetch(`http://localhost:3000/delete_account/${currentUserId}`, {
+    fetch(`http://localhost:3000/delete_account/${currentUser}`, {
       method: "DELETE"
     })
   }
@@ -60,7 +67,7 @@ function App() {
           <DeleteAccountConfirm handleDelete={actuallyDelete}/>
         </Route>
         <Route exact path="/main">
-          <RecipeContainer />
+          <RecipeContainer user={currentUser}/>
           <IngredientContainer />
         </Route>
       </Switch>
