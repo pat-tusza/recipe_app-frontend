@@ -5,9 +5,65 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #ffdab9;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.cards {
+  margin: 39px auto;
+  list-style: none;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  padding-left: 50px;
+}
+
+.card {
+  border: solid;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  position: relative;
+  padding: 10px;
+  background-color: #B38F70;
+  border-radius: 22px;
+}
+
+.recipe-image img {
+  width: 100%;
+  max-width: 250px;
+  max-height: 250px;
+}
+
+.banner {
+  text-align: center;
+  border: solid;
+  border-color: black;
+  padding: 20px;
+  margin: -11px;
+}
+
+.search{
+  width: 1000px;
+  height: 40px;
+  font-size: 20px;
+}
+
+.center-search{
+  width: 100%;
+  text-align: center;
+}
+
+.cat-butts{
+  width: 100%;
+  text-align: center;
+}
+
+.search-container{
+  border-bottom: solid;
+  padding: 10px;
 }

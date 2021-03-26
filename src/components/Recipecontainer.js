@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react"
 import RecipeCard from "./RecipeCard"
+import Search from "./Search"
 
 const RecipeContainer = () =>{
     const [allRecipes, setAllRecipes] = useState([])
@@ -13,10 +14,11 @@ const RecipeContainer = () =>{
             })
     }, [])
 
-    const toDisplay = recipesToDisplay.map((recipe) => <RecipeCard key= {recipe.name} recipe={recipe} />)
+    const toDisplay = recipesToDisplay.map((recipe) => <RecipeCard key= {recipe.id} recipe={recipe} />)
     return(
         <>
-            {toDisplay}
+            <Search />
+            <ul className="cards">{toDisplay}</ul>
         </> 
     )
 }
