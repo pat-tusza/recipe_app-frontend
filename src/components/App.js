@@ -1,9 +1,16 @@
 import React, { useState } from "react"
 import RecipeContainer from "./Recipecontainer"
 import IngredientContainer from "./IngredientContainer"
-import LoginForm from "./LoginForm"
+import HomePage from "./HomePage"
 import { Switch, Route, useHistory } from "react-router-dom";
 import DeleteAccountConfirm from "./DeleteAccount.js"
+import EditAccountPage from "./EditAccountPage"
+import CreateAccountForm from "./CreateAccountForm"
+import LoginPage from "./LoginPage"
+import EditPassword from "./EditPassword"
+import AccountControls from "./AccountControls"
+import CreateRecipe from "./CreateRecipe"
+
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -19,9 +26,11 @@ function App() {
     })
       .then(r=> r.json())
       .then(result => {
-        if (result.username){
-          setCurrentUser(result);
+        if (result.user){
+          setCurrentUser(result.user);
           history.push("/main");
+          localStorage.setItem("user", result.user)
+          localStorage.setItem("token", result.token)
         }else{
           console.log(result)
         }
@@ -38,9 +47,11 @@ function App() {
     })
       .then(r=>r.json())
       .then(result => {
-        if (result.username){
-          setCurrentUser(result);
+        if (result.user){
+          setCurrentUser(result.user);
           history.push("/main");
+          localStorage.setItem("user", result.user)
+          localStorage.setItem("token", result.token)
         }else{
           console.log(result)
         }
@@ -48,29 +59,100 @@ function App() {
   }
 
   const deleteAccount = e => {
-    history.push("/deleteAccount")
+    history.push("/delete_account")
   }
 
   const actuallyDelete = e => {
-    fetch(`http://localhost:3000/delete_account/${currentUser}`, {
+    fetch(`http://localhost:3000/delete_account/${currentUser.id}`, {
       method: "DELETE"
     })
+    setCurrentUser(null);
+    history.push("/")
+  }
+
+  const editAccount = e => {
+    history.push("/edit_account")
+  }
+
+  const actuallyEdit = data => {
+    fetch(`http://localhost:3000/edit_account/${currentUser.id}`,{
+      method: "PATCH",
+      headers:{
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then(r => r.json())
+      .then(data => {
+        setCurrentUser(data);
+        history.push("/main")
+      })
+  }
+
+  const sendToLogin = () => history.push("/login")
+  const sendToCreate = () => history.push("/create_account")
+  const sendToEditPassword = () => history.push("/edit_password")
+  const sendToCreateRecipe = () => history.push("/create_recipe")
+
+  const editPassword = (data) => {
+    fetch(`http://localhost:3000/edit_password/${currentUser.id}`,{
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then(r=> r.json())
+      .then(result => {
+          console.log(result);
+          history.push("/main")
+      })
+  }
+
+  const logOut = () => {
+    setCurrentUser(null);
+    history.push("/");
+  }
+
+  const createRecipe = e => {
+
   }
 
   return (
     <div>
-      <Switch>
-        <Route exact path="/">
-          <LoginForm handleDelete={deleteAccount} handleLogin={handleLogin} handleCreateAccount={createAccount}/>
-        </Route>
-        <Route exact path="/delete_account">
-          <DeleteAccountConfirm handleDelete={actuallyDelete}/>
-        </Route>
-        <Route exact path="/main">
-          <RecipeContainer user={currentUser}/>
-          <IngredientContainer />
-        </Route>
-      </Switch>
+        {currentUser === null ? (
+          <Switch>
+            <Route exact path="/">
+              <HomePage sendToLogin={sendToLogin} sendToCreate={sendToCreate}/>
+            </Route>
+            <Route exact path="/login">
+              <LoginPage handleLogin={handleLogin}/>
+            </Route>
+            <Route exact path="/create_account">
+              <CreateAccountForm handleCreateAccount={createAccount}/>
+            </Route>
+          </Switch>
+         ) : (
+          <Switch>
+            <Route exact path="/delete_account">
+              <DeleteAccountConfirm handleDelete={actuallyDelete}/>
+            </Route>
+            <Route exact path ="/edit_account">
+              <EditAccountPage user={currentUser} handleEdit={actuallyEdit} sendToEditPassword={sendToEditPassword} />
+            </Route>
+            <Route exact path="/edit_password">
+              <EditPassword handleSubmit={editPassword}/>
+            </Route>
+            <Route exact path="/main">
+              <AccountControls user={currentUser} handleDelete={deleteAccount} handleEditAccount={editAccount} handleLogout={logOut} />
+              <RecipeContainer sendToCreate={sendToCreateRecipe} user={currentUser}/>
+              <IngredientContainer />
+            </Route>
+            <Route exact path="/create_recipe">
+              <CreateRecipe handleSubmit={createRecipe}/>
+            </Route>
+          </Switch>
+            )}
     </div>
   );
 }
