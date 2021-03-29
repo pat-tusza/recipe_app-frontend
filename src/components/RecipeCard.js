@@ -10,11 +10,21 @@ const RecipeCard = ({recipe, user}) => {
     })
     const [commentList, setCommentList] = useState(recipe.comments.map((comment)=><p>{comment.rating} {comment.comment}</p>));
     const [hasCommentedArr, setHasCommentedArr] = useState(null);
+    const [averageRatingInfo, setAverageRatingInfo] = useState(null)
 
     useEffect(()=> {
         fetch(`http://localhost:3000/users/${user.id}/${recipe.id}/comments`)
             .then(r=>r.json())
             .then(data=> setCanCommentStatus(data))
+        
+        fetch(`http://localhost:3000/recipes/${recipe.id}/rating`)
+            .then(r => r.json())
+            .then(data=>{
+                setAverageRatingInfo({
+                    score: data.score,
+                    amount: data.amount
+                })
+            })
     },[])
 
     const instructions = recipe.instructions.map((step) => step);
@@ -32,7 +42,13 @@ const RecipeCard = ({recipe, user}) => {
             .then(data=> {
                 const tempArr = <p>{data.rating} {data.comment}</p>
                 const temp = [...commentList, tempArr];
-                setCommentList(temp);
+                setCommentList(temp)
+                setAverageRatingInfo(s=>{
+                    return {
+                        score: (s.score + data.rating),
+                        amount: (s.amount + 1)
+                    }
+                });
             })
         setCommentFormInfo({        
             score: "",
@@ -65,6 +81,7 @@ const RecipeCard = ({recipe, user}) => {
             Description: {recipe.description} <br></br>
             Instructions: {instructions}<br></br>
             <img src={recipe.image} alt={recipe.name}></img>
+            {averageRatingInfo === null ? null : <span>Average score of {averageRatingInfo.score / averageRatingInfo.amount} based on {averageRatingInfo.amount} reviews</span>}
             <h3>Comments</h3>
             {commentList}
             {canCommentStatus? newCommentForm : null }
