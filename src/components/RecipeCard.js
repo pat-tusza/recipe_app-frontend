@@ -1,14 +1,21 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 
 const RecipeCard = ({recipe, user}) => {
-    const [addCommentStatus, setAddCommentStatus] = useState(false);
+    const [canCommentStatus, setCanCommentStatus] = useState(true);
     const [commentFormInfo, setCommentFormInfo] = useState({
-        score: undefined,
-        comment: undefined,
+        score: "",
+        comment: "",
         recipeId: recipe.id,
         userId: user.id
     })
-    const [commentList, setCommentList] = useState(recipe.comments.map((comment)=> [comment.user_id, comment.rating, comment.comment]));
+    const [commentList, setCommentList] = useState(recipe.comments.map((comment)=><p>{comment.rating} {comment.comment}</p>));
+    const [hasCommentedArr, setHasCommentedArr] = useState(null);
+
+    useEffect(()=> {
+        fetch(`http://localhost:3000/users/${user.id}/${recipe.id}/comments`)
+            .then(r=>r.json())
+            .then(data=> setCanCommentStatus(data))
+    },[])
 
     const instructions = recipe.instructions.map((step) => step);
 
@@ -23,11 +30,17 @@ const RecipeCard = ({recipe, user}) => {
         })
             .then(r=>r.json())
             .then(data=> {
-                const tempArr = [data.user.username, data.rating, data.comment]
-                console.log(data)
+                const tempArr = <p>{data.rating} {data.comment}</p>
                 const temp = [...commentList, tempArr];
                 setCommentList(temp);
             })
+        setCommentFormInfo({        
+            score: "",
+            comment: "",
+            recipeId: recipe.id,
+            userId: user.id
+        })
+        setCanCommentStatus(false);
     }
 
     const handleChange = e => {
@@ -45,10 +58,6 @@ const RecipeCard = ({recipe, user}) => {
         </>
     )
 
-    const showCommentForm = e =>{
-        setAddCommentStatus((s)=> !s)
-    }
-
     return(
         <div>
             Name: {recipe.name}<br></br>
@@ -58,8 +67,7 @@ const RecipeCard = ({recipe, user}) => {
             <img src={recipe.image} alt={recipe.name}></img>
             <h3>Comments</h3>
             {commentList}
-            {addCommentStatus? newCommentForm : <button onClick={showCommentForm}>Comment and Score!</button>}
-
+            {canCommentStatus? newCommentForm : null }
         </div>
     )
 }
