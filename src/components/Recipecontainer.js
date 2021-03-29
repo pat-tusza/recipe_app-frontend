@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react"
 import RecipeCard from "./RecipeCard"
 
-const RecipeContainer = ({user, sendToCreate}) =>{
+const RecipeContainer = ({user, sendToCreate, submitComment}) =>{
     const [allRecipes, setAllRecipes] = useState([])
     const [recipesToDisplay, setRecipesToDisplay] = useState([])
     useEffect(()=>{
@@ -13,7 +13,7 @@ const RecipeContainer = ({user, sendToCreate}) =>{
             })
     }, [])
 
-    const toDisplay = recipesToDisplay.map((recipe) => <RecipeCard key= {recipe.name} recipe={recipe} />)
+    const toDisplay = recipesToDisplay.map((recipe) => <RecipeCard key= {recipe.name} recipe={recipe} submitComment={submitComment} />)
     return(
         <>
             <br></br><br></br>

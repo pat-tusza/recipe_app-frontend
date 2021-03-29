@@ -132,8 +132,12 @@ function App() {
     history.push("/");
   }
 
-  const createRecipe = e => {
+  const createRecipe = data => {
+    console.log(data)
+  }
 
+  const submitComment = data => {
+    console.log(data)
   }
 
   return (
@@ -166,7 +170,7 @@ function App() {
             </Route>
             <Route exact path="/main">
               <AccountControls user={currentUser} handleDelete={deleteAccount} handleEditAccount={editAccount} handleLogout={logOut} />
-              <RecipeContainer sendToCreate={sendToCreateRecipe} user={currentUser}/>
+              <RecipeContainer submitComment={submitComment} sendToCreate={sendToCreateRecipe} user={currentUser}/>
               <IngredientContainer />
             </Route>
           </Switch>

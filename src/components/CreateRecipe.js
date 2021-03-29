@@ -23,7 +23,7 @@ const CreateRecipe = ({handleSubmit}) => {
     const submit = e => {
         e.preventDefault();
         let allIngredients = [...userProteins, ...userVeggies, ...userSides];
-        console.log(allIngredients);
+        handleSubmit(allIngredients);
     }
 
     const changeProtein = e =>{
