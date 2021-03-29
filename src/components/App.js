@@ -127,6 +127,8 @@ function App() {
 
   const logOut = () => {
     setCurrentUser(null);
+    localStorage.removeItem("token");
+    localStorage.removeItem("user")
     history.push("/");
   }
 
