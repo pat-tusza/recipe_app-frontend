@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import RecipeContainer from "./Recipecontainer"
 import IngredientContainer from "./IngredientContainer"
 import HomePage from "./HomePage"
@@ -15,6 +15,22 @@ import CreateRecipe from "./CreateRecipe"
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const history = useHistory();
+
+  useEffect(()=> {
+    const token = localStorage.getItem("token");
+    if (token){
+      fetch("http://localhost:3000/me", {
+        headers:{
+          Authorization: `Bearer ${token}`
+        },
+      })
+        .then(r => r.json())
+        .then(user => {
+          setCurrentUser(user)
+          history.push("/main")
+        })
+    }
+  }, [])
 
   const handleLogin = formInfo => {
     fetch("http://localhost:3000/login",{
@@ -143,13 +159,13 @@ function App() {
             <Route exact path="/edit_password">
               <EditPassword handleSubmit={editPassword}/>
             </Route>
+            <Route exact path="/create_recipe">
+              <CreateRecipe handleSubmit={createRecipe}/>
+            </Route>
             <Route exact path="/main">
               <AccountControls user={currentUser} handleDelete={deleteAccount} handleEditAccount={editAccount} handleLogout={logOut} />
               <RecipeContainer sendToCreate={sendToCreateRecipe} user={currentUser}/>
               <IngredientContainer />
-            </Route>
-            <Route exact path="/create_recipe">
-              <CreateRecipe handleSubmit={createRecipe}/>
             </Route>
           </Switch>
             )}
