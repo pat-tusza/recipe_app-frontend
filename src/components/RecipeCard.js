@@ -1,18 +1,33 @@
 import React, {useState} from "react"
 
-const RecipeCard = ({recipe, submitComment}) => {
+const RecipeCard = ({recipe, user}) => {
     const [addCommentStatus, setAddCommentStatus] = useState(false);
     const [commentFormInfo, setCommentFormInfo] = useState({
         score: undefined,
-        comment: undefined
+        comment: undefined,
+        recipeId: recipe.id,
+        userId: user.id
     })
+    const [commentList, setCommentList] = useState(recipe.comments.map((comment)=> [comment.user_id, comment.rating, comment.comment]));
 
     const instructions = recipe.instructions.map((step) => step);
-    const comments = recipe.comments.map((comment)=> comment);
 
     const handleComment = e => {
         e.preventDefault();
-        submitComment(commentFormInfo);
+        fetch("http://localhost:3000/add_comment",{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(commentFormInfo)
+        })
+            .then(r=>r.json())
+            .then(data=> {
+                const tempArr = [data.user.username, data.rating, data.comment]
+                console.log(data)
+                const temp = [...commentList, tempArr];
+                setCommentList(temp);
+            })
     }
 
     const handleChange = e => {
@@ -42,7 +57,7 @@ const RecipeCard = ({recipe, submitComment}) => {
             Instructions: {instructions}<br></br>
             <img src={recipe.image} alt={recipe.name}></img>
             <h3>Comments</h3>
-            {comments}<br></br>
+            {commentList}
             {addCommentStatus? newCommentForm : <button onClick={showCommentForm}>Comment and Score!</button>}
 
         </div>

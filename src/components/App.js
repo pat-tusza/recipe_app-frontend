@@ -136,10 +136,6 @@ function App() {
     console.log(data)
   }
 
-  const submitComment = data => {
-    console.log(data)
-  }
-
   return (
     <div>
         {currentUser === null ? (
@@ -170,7 +166,7 @@ function App() {
             </Route>
             <Route exact path="/main">
               <AccountControls user={currentUser} handleDelete={deleteAccount} handleEditAccount={editAccount} handleLogout={logOut} />
-              <RecipeContainer submitComment={submitComment} sendToCreate={sendToCreateRecipe} user={currentUser}/>
+              <RecipeContainer sendToCreate={sendToCreateRecipe} user={currentUser}/>
               <IngredientContainer />
             </Route>
           </Switch>
