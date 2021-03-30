@@ -2,13 +2,11 @@ import React, {useState, useEffect} from "react"
 
 const CreateRecipe = ({handleSubmit}) => {
     const [ingredients, setIngredients] = useState(null)
-    const [recipeDiv, setRecipeDiv] = useState([]);
-    const [proteins, setProteins] = useState(null);
-    const [veggies,setVeggies] = useState(null);
-    const [sides, setSides] = useState(null);
-    const [userProteins, setUserProteins] = useState([]);
-    const [userVeggies, setUserVeggies] = useState([]);
-    const [userSides, setUserSides] = useState([]);
+    const [proteins, setProteins] = useState([]);
+    const [veggies,setVeggies] = useState([]);
+    const [sides, setSides] = useState([]);
+    const [name, setName] = useState("")
+    const [userIngredients, setUserIngredients] = useState([])
     useEffect(() => {
         fetch("http://localhost:3000/ingredients/proteins")
             .then(r=> r.json())
@@ -22,63 +20,41 @@ const CreateRecipe = ({handleSubmit}) => {
     }, [])
     const submit = e => {
         e.preventDefault();
-        let allIngredients = [...userProteins, ...userVeggies, ...userSides];
-        handleSubmit(allIngredients);
+        handleSubmit({ingredients: userIngredients, name: name});
     }
 
-    const changeProtein = e =>{
-        const temp = [...userProteins, e.target.value];
-        setUserProteins(temp);
+    const nums = [1,2,3,4,5,6,7,8,9]
+
+    const changeName = e => {
+        setName(e.target.value)
     }
 
-    const changeVeggie = e => {
-        const temp = [...userVeggies, e.target.value]
-        setUserVeggies(temp);
-    }
-
-    const changeSide = e => {
-        const temp = [...userSides, e.target.value]
-        setUserSides(temp);
-    }
-
-    const addIngredient = e =>{
-        const type = e.target.name;
-        switch (type){
-            case "protein":
-                const protein = <select onChange={changeProtein} name="recipe">
-                    {proteins.map((protein) => <option value={protein.name} key={protein.name}>{protein.name}</option>)}
-                </select>
-                const temppro = [...recipeDiv]
-                temppro.push(protein)
-                setRecipeDiv(temppro);
-                break;
-            case "veggie":
-                const veggie = <select onChange={changeVeggie} name="recipe">
-                    {veggies.map((veggie) => <option value={veggie.name} key={veggie.name}>{veggie.name}</option>)}
-                </select>
-                const temp = [...recipeDiv]
-                temp.push(veggie)
-                setRecipeDiv(temp);
-                break;
-            case "side":
-                const side = <select onChange={changeSide} name="recipe">
-                    {sides.map((side) => <option value={side.name} key={side.name}>{side.name}</option>)}
-                </select>
-                const tempSide = [...recipeDiv]
-                tempSide.push(side)
-                setRecipeDiv(tempSide);
-                break;
-            default:
+    const addIngredient = e => {
+        if (e.target.checked){
+            const temp = [...userIngredients, e.target.value];
+            setUserIngredients(temp);
+        }else{
+            const index = userIngredients.indexOf(e.target.value);
+            let temp = [...userIngredients];
+            temp.splice(index, 1);
+            setUserIngredients(temp);
         }
     }
 
+    const proteinBoxes = proteins.map((protein) => <div key={protein.name}> <input id={protein.name} value={protein.name} type="checkbox" onChange={addIngredient}/><label htmlFor={protein.name}>{protein.name}</label> </div>)
+    const veggieBoxes = veggies.map((veggie) => <div key={veggie.name}> <input id={veggie.name} type="checkbox" value={veggie.name} onChange={addIngredient}/><label htmlFor={veggie.name}>{veggie.name}</label> </div>)
+    const sideBoxes = sides.map((side) => <div key={side.name}> <input id={side.name} type="checkbox" value={side.name} onChange={addIngredient}/><label htmlFor={side.name}>{side.name}</label> </div>)
+
     return (
         <>
-        <button onClick={addIngredient} name="protein">Add a protein</button> 
-        <button onClick={addIngredient} name="veggie">Add a vegie</button> 
-        <button onClick={addIngredient} name="side">Add a side</button> 
+        Recipe name: <input type="text" onChange={changeName} value={name} /><br></br>
             <form onSubmit={submit}>
-                {recipeDiv}
+                <h2>Proteins</h2>
+                {proteinBoxes}
+                <h2>Veggies</h2>
+                {veggieBoxes}
+                <h2>Sides</h2>
+                {sideBoxes}
                 <input type="submit"/>
             </form>
         </>

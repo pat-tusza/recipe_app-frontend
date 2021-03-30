@@ -8,8 +8,7 @@ const RecipeCard = ({recipe, user}) => {
         recipeId: recipe.id,
         userId: user.id
     })
-    const [commentList, setCommentList] = useState(recipe.comments.map((comment)=><p>{comment.rating} {comment.comment}</p>));
-    const [hasCommentedArr, setHasCommentedArr] = useState(null);
+    const [commentList, setCommentList] = useState(recipe.comments.map((comment, i)=><p key={i}>{comment.rating} {comment.comment}</p>));
     const [averageRatingInfo, setAverageRatingInfo] = useState(null)
 
     useEffect(()=> {
