@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react"
+import IngredientBox from "./IngredientBox"
 
-const CreateRecipe = ({handleSubmit}) => {
+const CreateRecipe = () => {
     const [ingredients, setIngredients] = useState(null)
     const [proteins, setProteins] = useState([]);
     const [veggies,setVeggies] = useState([]);
@@ -18,32 +19,40 @@ const CreateRecipe = ({handleSubmit}) => {
             .then(b=> b.json())
             .then(data2=>setSides(data2))   
     }, [])
+
+    const handleSubmit = data => {
+            //console.log(data)
+    }
+
     const submit = e => {
         e.preventDefault();
         handleSubmit({ingredients: userIngredients, name: name});
     }
 
-    const nums = [1,2,3,4,5,6,7,8,9]
-
     const changeName = e => {
         setName(e.target.value)
     }
 
-    const addIngredient = e => {
-        if (e.target.checked){
-            const temp = [...userIngredients, e.target.value];
+    const addIngredient = obj => {
+        if (obj.checked){
+            const tmpobj = {ingredient: obj.name, quantity: obj.quantity}
+            const temp = [...userIngredients, tmpobj];
             setUserIngredients(temp);
         }else{
-            const index = userIngredients.indexOf(e.target.value);
+            const index = userIngredients.indexOf(obj.e.target.value);
             let temp = [...userIngredients];
             temp.splice(index, 1);
             setUserIngredients(temp);
         }
     }
 
-    const proteinBoxes = proteins.map((protein) => <div key={protein.name}> <input id={protein.name} value={protein.name} type="checkbox" onChange={addIngredient}/><label htmlFor={protein.name}>{protein.name}</label> </div>)
-    const veggieBoxes = veggies.map((veggie) => <div key={veggie.name}> <input id={veggie.name} type="checkbox" value={veggie.name} onChange={addIngredient}/><label htmlFor={veggie.name}>{veggie.name}</label> </div>)
-    const sideBoxes = sides.map((side) => <div key={side.name}> <input id={side.name} type="checkbox" value={side.name} onChange={addIngredient}/><label htmlFor={side.name}>{side.name}</label> </div>)
+    const proteinBoxes = proteins.map((protein) => <IngredientBox protein={protein} addIngredient={addIngredient}/>)
+    const veggieBoxes = veggies.map((veggie) => <div key={veggie.name}> <input id={veggie.name} type="checkbox" value={veggie.name} onChange={addIngredient}/><label htmlFor={veggie.name}>{veggie.name}</label> </div>);
+    const sideBoxes = sides.map((side) => <div key={side.name}> <input id={side.name} type="checkbox" value={side.name} onChange={addIngredient}/><label htmlFor={side.name}>{side.name}</label> </div>);
+
+    const ongoingRecipe = userIngredients.map((obj)=> {
+        return <p>{obj.ingredient} quantity: {obj.quantity}</p>
+    })
 
     return (
         <>
@@ -57,6 +66,8 @@ const CreateRecipe = ({handleSubmit}) => {
                 {sideBoxes}
                 <input type="submit"/>
             </form>
+            <h2>current</h2>
+            {ongoingRecipe}
         </>
     )
 }

@@ -132,10 +132,6 @@ function App() {
     history.push("/");
   }
 
-  const createRecipe = data => {
-    console.log(data)
-  }
-
   return (
     <div>
         {currentUser === null ? (
@@ -162,7 +158,7 @@ function App() {
               <EditPassword handleSubmit={editPassword}/>
             </Route>
             <Route exact path="/create_recipe">
-              <CreateRecipe handleSubmit={createRecipe}/>
+              <CreateRecipe />
             </Route>
             <Route exact path="/main">
               <AccountControls user={currentUser} handleDelete={deleteAccount} handleEditAccount={editAccount} handleLogout={logOut} />
