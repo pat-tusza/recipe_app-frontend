@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from 'react-bootstrap/Button'
 
 const Search = ({setSearch, search}) => {
     
@@ -15,15 +16,15 @@ const Search = ({setSearch, search}) => {
             </form>
             <br></br>
             <div className="cat-butts">
-                <button>Vegan</button> {" "}
-                <button>Vegitarian</button>{" "}
-                <button>Savory</button>{" "}
-                <button>Breakfast</button> {" "}
-                <button>Desert</button> {" "}
+                <Button variant="success">Vegan</Button>{' '}
+                <Button variant="success">Vegitarian</Button>{" "}
+                <Button variant="success">Breakfast</Button> {" "}
+                <Button variant="success">Entree</Button>{" "}
+                <Button variant="success">Desert</Button> {" "}
             </div>
             <br></br>
             <div className="cat-butts">
-                <button>Submit a New Recipe</button>
+            <Button variant="success">Submit a New Recipe</Button>
             </div>
         </div>
     )

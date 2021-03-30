@@ -44,8 +44,8 @@ code {
 
 .banner {
   text-align: center;
-  border: solid;
-  border-color: black;
+  /* border: solid;
+  border-color: black; */
   padding: 20px;
   margin: -11px;
 }
@@ -81,4 +81,10 @@ code {
   margin-left: auto;
   margin-right: auto;
   width: 37%;
+  border: 3px solid #84824d;
+  border-radius: 4px;
+}
+
+.recipe-page h1{
+  text-align: center;
 }
