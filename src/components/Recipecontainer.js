@@ -17,11 +17,9 @@ const RecipeContainer = ({user, sendToCreate}) =>{
             .then(r=> r.json())
             .then(data=>{
                 // setAllRecipes(data);
-                setRecipesToDisplay(data)
+                setRecipesToDisplay(data);
             })
     }, [])
-
-    console.log(filtRec)
 
     const toDisplay = filtRec.map((recipe) => <RecipeCard key= {recipe.id} recipe={recipe} user={user} />)
     return(

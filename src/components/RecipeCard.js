@@ -12,7 +12,7 @@ const RecipeCard = ({recipe, user}) => {
         recipeId: recipe.id,
         userId: user.id
     })
-    const [commentList, setCommentList] = useState(recipe.comments.map((comment, i)=><p key={i}>{comment.rating} {comment.comment}</p>));
+    const [commentList, setCommentList] = useState(recipe.comments.map((comment, i)=><p key={i}>{comment.username} {comment.rating} {comment.comment}</p>));
     const [averageRatingInfo, setAverageRatingInfo] = useState(null)
 
     useEffect(()=> {
@@ -86,7 +86,7 @@ const RecipeCard = ({recipe, user}) => {
             <div className="recipe-image">
             <img src={recipe.image} alt={recipe.name}></img>
             </div>
-            Id: {recipe.id} <br></br>
+            Calories: {recipe.calories} <br></br>
             Category: {recipe.category} <br></br>
             {recipe.description} <br></br>
             {instructions}
