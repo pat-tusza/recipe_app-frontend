@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState, useEffect} from "react"
 import { Link } from "react-router-dom"
 import CommentContainer from "react"
 import Button from 'react-bootstrap/Button'
@@ -89,10 +89,12 @@ const RecipeCard = ({recipe, user}) => {
             Id: {recipe.id} <br></br>
             Category: {recipe.category} <br></br>
             {recipe.description} <br></br>
+            {instructions}
             {averageRatingInfo === null || averageRatingInfo.amount === 0 ? <span>No reviews yet!</span> : <span>Average score of {averageRatingInfo.score / averageRatingInfo.amount} based on {averageRatingInfo.amount} reviews</span>}
             <h3>Comments</h3>
             {commentList}
             {canCommentStatus? newCommentForm : null }
+            
             <Link to={link}> Full Recipe </Link>
         
         </div>

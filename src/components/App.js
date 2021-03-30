@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import RecipeContainer from "./Recipecontainer"
-import IngredientContainer from "./IngredientContainer"
+import Recipe from "./Recipe"
 import HomePage from "./HomePage"
 import { Switch, Route, useHistory } from "react-router-dom";
 import DeleteAccountConfirm from "./DeleteAccount.js"
@@ -165,21 +165,14 @@ function App() {
             <Route exact path="/main">
               <AccountControls user={currentUser} handleDelete={deleteAccount} handleEditAccount={editAccount} handleLogout={logOut} />
               <RecipeContainer sendToCreate={sendToCreateRecipe} user={currentUser}/>
-              <IngredientContainer />
+            </Route>
+            <Route exact path="/recipes/:id">
+              <Recipe />
             </Route>
           </Switch>
             )}
     </div>
-    // <div>
-      
-    //   {isLoggedIn ? 
-    //    <>
-    //    <RecipeContainer />
-    //    <IngredientContainer />
-    //   </> :
-    //     <LoginForm handleLogin={handleLogin} /> 
-    //   }
-    // </div>
+    
   );
 }
 
