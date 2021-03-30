@@ -133,6 +133,7 @@ function App() {
     history.push("/");
   }
 
+    
   return (
     <div>
         {currentUser === null ? (
@@ -169,6 +170,16 @@ function App() {
           </Switch>
             )}
     </div>
+    // <div>
+      
+    //   {isLoggedIn ? 
+    //    <>
+    //    <RecipeContainer />
+    //    <IngredientContainer />
+    //   </> :
+    //     <LoginForm handleLogin={handleLogin} /> 
+    //   }
+    // </div>
   );
 }
 

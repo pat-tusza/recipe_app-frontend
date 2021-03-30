@@ -1,4 +1,8 @@
-import React, {useState, useEffect} from "react"
+import React from "react"
+import { Link } from "react-router-dom"
+import CommentContainer from "react"
+import Button from 'react-bootstrap/Button'
+
 
 const RecipeCard = ({recipe, user}) => {
     const [canCommentStatus, setCanCommentStatus] = useState(true);
@@ -73,17 +77,24 @@ const RecipeCard = ({recipe, user}) => {
         </>
     )
 
+    const link = `/recipes/${recipe.id}`
+    
+
     return(
-        <div>
-            Name: {recipe.name}<br></br>
-            Category: {recipe.category} <br></br>
-            Description: {recipe.description} <br></br>
-            Instructions: {instructions}<br></br>
+        <div className="card">
+            <p className="card-title">{recipe.name}</p>
+            <div className="recipe-image">
             <img src={recipe.image} alt={recipe.name}></img>
+            </div>
+            Id: {recipe.id} <br></br>
+            Category: {recipe.category} <br></br>
+            {recipe.description} <br></br>
             {averageRatingInfo === null || averageRatingInfo.amount === 0 ? <span>No reviews yet!</span> : <span>Average score of {averageRatingInfo.score / averageRatingInfo.amount} based on {averageRatingInfo.amount} reviews</span>}
             <h3>Comments</h3>
             {commentList}
             {canCommentStatus? newCommentForm : null }
+            <Link to={link}> Full Recipe </Link>
+        
         </div>
     )
 }
