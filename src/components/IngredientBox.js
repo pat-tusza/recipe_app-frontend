@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 
-const IngredientBox = ({protein, addIngredient}) => {
+const IngredientBox = ({ingredient, addIngredient}) => {
     const [isChecked, setIsChecked] = useState(false);
     const [quantity, setQuantity] = useState(null);
 
@@ -9,7 +9,8 @@ const IngredientBox = ({protein, addIngredient}) => {
     }
 
     const confirmAdd = e => {
-        addIngredient({checked: true, name: protein.name, quantity: quantity});
+        addIngredient({checked: true, name: ingredient.name, quantity: quantity});
+        setIsChecked(false)
     }
 
     const quantitySelect = <>
@@ -24,8 +25,8 @@ const IngredientBox = ({protein, addIngredient}) => {
 
     return (
         <>
-            <input id={protein.name} value={protein.name} type="checkbox" onChange={checked}/>
-            <label htmlFor={protein.name}>{protein.name}</label>
+            <input id={ingredient.name} value={ingredient.name} type="checkbox" onChange={checked}/>
+            <label htmlFor={ingredient.name}>{ingredient.name}</label>
             {isChecked ? quantitySelect : null}
         </>
     )

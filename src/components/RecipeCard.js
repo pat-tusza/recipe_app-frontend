@@ -80,7 +80,7 @@ const RecipeCard = ({recipe, user}) => {
             Description: {recipe.description} <br></br>
             Instructions: {instructions}<br></br>
             <img src={recipe.image} alt={recipe.name}></img>
-            {averageRatingInfo === null ? null : <span>Average score of {averageRatingInfo.score / averageRatingInfo.amount} based on {averageRatingInfo.amount} reviews</span>}
+            {averageRatingInfo === null || averageRatingInfo.amount === 0 ? <span>No reviews yet!</span> : <span>Average score of {averageRatingInfo.score / averageRatingInfo.amount} based on {averageRatingInfo.amount} reviews</span>}
             <h3>Comments</h3>
             {commentList}
             {canCommentStatus? newCommentForm : null }

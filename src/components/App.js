@@ -109,6 +109,7 @@ function App() {
   const sendToCreate = () => history.push("/create_account")
   const sendToEditPassword = () => history.push("/edit_password")
   const sendToCreateRecipe = () => history.push("/create_recipe")
+  const sendToMain = () => history.push("/main")
 
   const editPassword = (data) => {
     fetch(`http://localhost:3000/edit_password/${currentUser.id}`,{
@@ -158,7 +159,7 @@ function App() {
               <EditPassword handleSubmit={editPassword}/>
             </Route>
             <Route exact path="/create_recipe">
-              <CreateRecipe />
+              <CreateRecipe sendToMain={sendToMain}/>
             </Route>
             <Route exact path="/main">
               <AccountControls user={currentUser} handleDelete={deleteAccount} handleEditAccount={editAccount} handleLogout={logOut} />

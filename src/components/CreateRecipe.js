@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react"
 import IngredientBox from "./IngredientBox"
 
-const CreateRecipe = () => {
+const CreateRecipe = ({sendToMain}) => {
     const [ingredients, setIngredients] = useState(null)
     const [proteins, setProteins] = useState([]);
     const [veggies,setVeggies] = useState([]);
@@ -21,7 +21,16 @@ const CreateRecipe = () => {
     }, [])
 
     const handleSubmit = data => {
-            //console.log(data)
+            fetch("http://localhost:3000/recipes/create_recipe",{
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+                .then(r=>r.json())
+                .then(console.log)
+            sendToMain();
     }
 
     const submit = e => {
@@ -46,9 +55,9 @@ const CreateRecipe = () => {
         }
     }
 
-    const proteinBoxes = proteins.map((protein) => <IngredientBox protein={protein} addIngredient={addIngredient}/>)
-    const veggieBoxes = veggies.map((veggie) => <div key={veggie.name}> <input id={veggie.name} type="checkbox" value={veggie.name} onChange={addIngredient}/><label htmlFor={veggie.name}>{veggie.name}</label> </div>);
-    const sideBoxes = sides.map((side) => <div key={side.name}> <input id={side.name} type="checkbox" value={side.name} onChange={addIngredient}/><label htmlFor={side.name}>{side.name}</label> </div>);
+    const proteinBoxes = proteins.map((protein) => <IngredientBox ingredient={protein} addIngredient={addIngredient}/>)
+    const veggieBoxes = veggies.map((veggie) => <IngredientBox ingredient={veggie} addIngredient={addIngredient}/>);
+    const sideBoxes = sides.map((side) => <IngredientBox ingredient={side} addIngredient={addIngredient}/>);
 
     const ongoingRecipe = userIngredients.map((obj)=> {
         return <p>{obj.ingredient} quantity: {obj.quantity}</p>
