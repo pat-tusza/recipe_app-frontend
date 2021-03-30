@@ -1,4 +1,4 @@
-body {
+#body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -20,7 +20,7 @@ code {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1rem;
-  padding-left: 50px;
+  padding-left: 30px;
 }
 
 .card {
@@ -67,7 +67,6 @@ code {
 }
 
 .search-container{
-  border-bottom: solid;
   padding: 10px;
 }
 
@@ -87,4 +86,10 @@ code {
 
 .recipe-page h1{
   text-align: center;
+}
+
+.user-bar{
+  text-align: center;
+  border-bottom: solid #84824d;
+  padding: 1em;
 }

@@ -17,7 +17,7 @@ function RecipePage() {
                 setPageRecipe(recipe)
                 setIsLoaded(true)
             })
-    }, [])
+    }, [id])
 
     if(!isloaded) return <h2>Loading....</h2>;
 

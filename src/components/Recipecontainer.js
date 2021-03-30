@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import RecipeCard from "./RecipeCard"
 import Search from "./Search"
 import CarouselCard from "./CarouselCard"
+import Carousel from 'react-bootstrap/Carousel'
 
 const RecipeContainer = ({user, sendToCreate}) =>{
     const [search, setSearch] = useState("")
@@ -28,10 +29,10 @@ const RecipeContainer = ({user, sendToCreate}) =>{
         <>
              <Search 
             setSearch={setSearch}
-            search={search}/>
+            search={search}
+            sendToCreate={sendToCreate}/>
             <ul className="cards">{toDisplay}</ul>
             <br></br><br></br>
-            <button onClick={sendToCreate}>Create New Recipe</button>
         </> 
     )
 }

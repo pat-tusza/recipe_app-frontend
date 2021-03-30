@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
 
-const Search = ({setSearch, search}) => {
+const Search = ({setSearch, search, sendToCreate }) => {
     
     return (
         <div className="search-container" >
@@ -24,7 +24,7 @@ const Search = ({setSearch, search}) => {
             </div>
             <br></br>
             <div className="cat-butts">
-            <Button variant="success">Submit a New Recipe</Button>
+            <Button variant="success" onClick={sendToCreate}>Submit a New Recipe</Button>
             </div>
         </div>
     )
