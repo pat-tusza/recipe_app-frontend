@@ -29,14 +29,17 @@ code {
   grid-template-rows: auto 1fr auto;
   position: relative;
   padding: 10px;
-  background-color: #B38F70;
+  background-color: #BAB86C;
   border-radius: 22px;
+  border-color: #84824d;
 }
 
 .recipe-image img {
   width: 100%;
   max-width: 250px;
   max-height: 250px;
+  border: 3px solid #84824d;
+  border-radius: 4px;
 }
 
 .banner {
@@ -66,4 +69,16 @@ code {
 .search-container{
   border-bottom: solid;
   padding: 10px;
+}
+
+.card-title{
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.recipe-page img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 37%;
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 
-const Search = () => {
+const Search = ({setSearch, search}) => {
+    
     return (
         <div className="search-container" >
             <form className="center-search">
@@ -8,15 +9,17 @@ const Search = () => {
                 className="search"
                 type="text" 
                 placeholder="Search"
+                value={search}
+                onChange={(e)=> setSearch(e.target.value)}
                 />
             </form>
             <br></br>
             <div className="cat-butts">
-                <button>Vegan</button>
-                <button>Vegitarian</button>
-                <button>Savory</button>
-                <button>Breakfast</button>
-                <button>Desert</button>
+                <button>Vegan</button> {" "}
+                <button>Vegitarian</button>{" "}
+                <button>Savory</button>{" "}
+                <button>Breakfast</button> {" "}
+                <button>Desert</button> {" "}
             </div>
             <br></br>
             <div className="cat-butts">

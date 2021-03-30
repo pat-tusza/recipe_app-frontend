@@ -9,7 +9,6 @@ ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
       <Header />
-      <br></br>
       <App />
     </React.StrictMode>
   </BrowserRouter>,
