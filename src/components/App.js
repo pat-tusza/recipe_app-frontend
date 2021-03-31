@@ -15,6 +15,7 @@ import CreateRecipe from "./CreateRecipe"
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const history = useHistory();
+  const [flipState, setFlipState] = useState(false);
 
   useEffect(()=> {
     const token = localStorage.getItem("token");
@@ -30,7 +31,7 @@ function App() {
           history.push("/main")
         })
     }
-  }, [])
+  }, [flipState])
 
   const handleLogin = formInfo => {
     fetch("http://localhost:3000/login",{
@@ -164,7 +165,7 @@ function App() {
             </Route>
             <Route exact path="/main">
               <AccountControls user={currentUser} handleDelete={deleteAccount} handleEditAccount={editAccount} handleLogout={logOut} />
-              <RecipeContainer sendToCreate={sendToCreateRecipe} user={currentUser}/>
+              <RecipeContainer flipState ={flipState} setFlipState={setFlipState} sendToCreate={sendToCreateRecipe} user={currentUser}/>
             </Route>
             <Route exact path="/recipes/:id">
               <Recipe user={currentUser}/>

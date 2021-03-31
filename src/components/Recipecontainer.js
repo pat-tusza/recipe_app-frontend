@@ -4,11 +4,12 @@ import Search from "./Search"
 import CarouselCard from "./CarouselCard"
 import Carousel from 'react-bootstrap/Carousel'
 
-const RecipeContainer = ({user, sendToCreate}) =>{
+const RecipeContainer = ({flipState, setFlipState, user, sendToCreate}) =>{
     const [search, setSearch] = useState("")
     const [catFilt, setCatFilt] = useState('')
     const [isVegan, setIsVegan] = useState(false)
     const [isVeggie, setIsVeggie] = useState(false)
+    const [isFavorite, setIsFavorite] = useState(false)
    
     // const [allRecipes, setAllRecipes] = useState([])
     const [recipesToDisplay, setRecipesToDisplay] = useState([])
@@ -32,6 +33,13 @@ const RecipeContainer = ({user, sendToCreate}) =>{
         return recipe.name.toLowerCase().includes(search.toLowerCase())
     })
     
+    let favoriteFilter = [...filtRec]
+
+    if(isFavorite){ 
+        favoriteFilter = filtRec.filter((recipe) => user.liked_recipes.includes(recipe.id))
+    }else{
+        favoriteFilter = [...filtRec]
+    }
 
     useEffect(()=>{
         fetch("http://localhost:3000/recipes")
@@ -42,10 +50,17 @@ const RecipeContainer = ({user, sendToCreate}) =>{
             })
     }, [])
 
-    const toDisplay = filtRec.map((recipe) => <RecipeCard key= {recipe.id} recipe={recipe} user={user} />)
+    const handleFavorite = i => {
+        setIsFavorite(!isFavorite);
+        setFlipState(!flipState);
+    }
+
+    const toDisplay = favoriteFilter.map((recipe) => <RecipeCard key= {recipe.id} recipe={recipe} user={user} />)
     return(
         <>
-             <Search 
+             <Search
+            handleFavorite={handleFavorite}
+            isFavorite={isFavorite}  
             setSearch={setSearch}
             search={search}
             sendToCreate={sendToCreate}
