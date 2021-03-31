@@ -13,23 +13,25 @@ const RecipeContainer = ({user, sendToCreate}) =>{
     // const [allRecipes, setAllRecipes] = useState([])
     const [recipesToDisplay, setRecipesToDisplay] = useState([])
     
-    // const petaNoticeMe = recipesToDisplay.filter((recipe)=>{
-    //     if(isVegan){
-    //         return recipe.vegan.includes(true)
-    //     }else if(isVeggie){
-    //         return recipe.vegetrian.includes(true)
-    //     }else{
-    //         return recipe.name.includes('')
-    //     } 
-    // })
+    const petaNoticeMe = recipesToDisplay.filter((recipe)=>{
+        if(isVegan){
+            return recipe.vegan
+        }else if(isVeggie){
+            return recipe.vegetarian
+        }else{
+            return recipe.name.includes('')
+        } 
+    })
+    
+    console.log(recipesToDisplay)
 
-    const filtRec = recipesToDisplay.filter((recipe) =>{
+    const moreCatFilt = petaNoticeMe.filter((recipe)=>{
+        return recipe.category.includes(catFilt)
+    })
+    const filtRec = moreCatFilt.filter((recipe) =>{
         return recipe.name.toLowerCase().includes(search.toLowerCase())
     })
     
-    const moreCatFilt = recipesToDisplay.filter((recipe)=>{
-        return recipe.category.includes(catFilt)
-    })
 
     useEffect(()=>{
         fetch("http://localhost:3000/recipes")
@@ -39,8 +41,6 @@ const RecipeContainer = ({user, sendToCreate}) =>{
                 setRecipesToDisplay(data)
             })
     }, [])
-
-    console.log(filtRec)
 
     const toDisplay = filtRec.map((recipe) => <RecipeCard key= {recipe.id} recipe={recipe} user={user} />)
     return(

@@ -38,7 +38,7 @@ function RecipePage( {user} ) {
     const instructions = pageRecipe.instructions.map((step) => <li>{step}</li>)
     const loadedComments= pageRecipe.comments.map((comment, i)=><p key={i}>{comment.rating} {comment.comment}</p>)
     const loadedIngred= pageRecipe.recipe_ingredients.map((ingred)=>{
-        return <li>{ingred.quantity} {ingred.ingredient_name}</li>
+        return <li>{ingred.quantity} {ingred.unit} {ingred.ingredient_name} </li>
     })
 
     // console.log(pageRecipe.recipe_ingredients[0])
