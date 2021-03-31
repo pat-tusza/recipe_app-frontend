@@ -1,8 +1,21 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
 
-const Search = ({setSearch, search}) => {
+const Search = ({setSearch, search, sendToCreate, setCatFilt, setIsVegan, setIsVeggie, isVegan, isVeggie }) => {
     
+    function handlePetaButts(e){
+        if(e.target.innerText === 'Vegan'){
+            setIsVegan(!isVegan)
+            if(isVeggie){
+                setIsVeggie(false)
+            }
+        }else {
+            setIsVeggie(!isVeggie)
+            if(isVegan){
+                setIsVegan(false)
+            }
+        }
+    }
     return (
         <div className="search-container" >
             <form className="center-search">
@@ -16,15 +29,16 @@ const Search = ({setSearch, search}) => {
             </form>
             <br></br>
             <div className="cat-butts">
-                <Button variant="success">Vegan</Button>{' '}
-                <Button variant="success">Vegitarian</Button>{" "}
-                <Button variant="success">Breakfast</Button> {" "}
-                <Button variant="success">Entree</Button>{" "}
-                <Button variant="success">Desert</Button> {" "}
+                <Button value={''} onClick={(e)=>setCatFilt(e.target.value)} variant="success">All</Button>{' '}
+                <Button onClick={(e)=>handlePetaButts(e)} variant="success">Vegan</Button>{' '}
+                <Button onClick={(e)=>handlePetaButts(e)} variant="success">Vegetarian</Button>{" "}
+                <Button value={'Breakfast'} onClick={(e)=>setCatFilt(e.target.value)} variant="success">Breakfast</Button> {" "}
+                <Button value={"Entree"} onClick={(e)=>setCatFilt(e.target.value)} variant="success">Entree</Button>{" "}
+                <Button value={"Desert"} onClick={(e)=>setCatFilt(e.target.value)} variant="success">Desert</Button> {" "}
             </div>
             <br></br>
             <div className="cat-butts">
-            <Button variant="success">Submit a New Recipe</Button>
+            <Button variant="success" onClick={sendToCreate}>Submit a New Recipe</Button>
             </div>
         </div>
     )

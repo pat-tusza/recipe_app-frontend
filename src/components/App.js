@@ -167,7 +167,7 @@ function App() {
               <RecipeContainer sendToCreate={sendToCreateRecipe} user={currentUser}/>
             </Route>
             <Route exact path="/recipes/:id">
-              <Recipe />
+              <Recipe user={currentUser}/>
             </Route>
           </Switch>
             )}

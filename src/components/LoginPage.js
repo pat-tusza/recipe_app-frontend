@@ -19,13 +19,13 @@ const LoginPage = ({handleLogin,}) => {
     }
 
     return (
-        <>
+        <div className="login">
         <form onSubmit={login}>
-            <input type="text" name="username" placeholder="Username" onChange={handleChange} value={formInfo.name}/>
-            <input type="password" name="password" placeholder="Password" onChange={handleChange} value={formInfo.password}/>
-            <input type="submit" value="Login"/>
+            <input type="text" name="username" placeholder="Username" onChange={handleChange} value={formInfo.name}/> <br></br>
+            <input type="password" name="password" placeholder="Password" onChange={handleChange} value={formInfo.password}/> <br></br>
+            <input className="login-sub" type="submit" value="Login"/> 
         </form>
-        </>
+        </div>
     )
 }
 

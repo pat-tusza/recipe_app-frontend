@@ -1,13 +1,14 @@
-
+import React from "react"
+import Button from 'react-bootstrap/Button'
 
 const AccountControls = ({user, handleDelete,handleEditAccount, handleLogout}) => {
     return (
-        <>
+        <div className="user-bar">
             <h1>{user.username}</h1>
-            <button onClick={handleDelete}>Delete Account</button>{" "}
-            <button onClick={handleEditAccount}>Edit Account</button>{" "}
-            <button onClick={handleLogout}>Logout</button>{" "}
-        </>
+            <Button variant="success" onClick={handleDelete}>Delete Account</Button>{" "}
+            <Button variant="success" onClick={handleEditAccount}>Edit Account</Button>{" "}
+            <Button variant="success" onClick={handleLogout}>Logout</Button>{" "}
+        </div>
     )
 }
 
