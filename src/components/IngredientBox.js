@@ -14,8 +14,9 @@ const IngredientBox = ({ingredient, addIngredient}) => {
     }
 
     const quantitySelect = <>
-        <input type="number" onChange={changeQuantity} value={quantity}/>
+        <input type="number" placeholder={ingredient.unit} onChange={changeQuantity} value={quantity}/>
         <button onClick={confirmAdd}>Add</button>
+        {console.log(ingredient)}
     </>
 
     const checked = e => {
