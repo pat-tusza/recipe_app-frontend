@@ -1,4 +1,5 @@
 import React, {useState} from "react"
+import Button from 'react-bootstrap/Button'
 
 const EditPassword = ({handleSubmit}) => {
     const [formInfo, setFormInfo] = useState({
@@ -19,13 +20,13 @@ const EditPassword = ({handleSubmit}) => {
     }
 
     return (
-        <>
+        <div className="login">
             <form onSubmit={submit}>
                 New Password: <input name="password" value={formInfo.password} onChange={handleChange} type="password"/>
                 Confirm Password: <input name="confirmation" value={formInfo.confirmation} onChange={handleChange}  type="password"/>
-                <input type="submit"/>
+                <Button as="input" variant="success" className="edit-butt-sub" type="submit"/>
             </form>
-        </>
+        </div>
     )
 }
 

@@ -1,12 +1,13 @@
 import React, {useState} from "react"
+import Button from 'react-bootstrap/Button'
 
 const HomePage = ({sendToLogin, sendToCreate}) => {
 
     return (
-        <>
-            <button onClick={sendToLogin}>Login</button><br></br>
-            <button onClick={sendToCreate}>Create Account</button>
-        </>
+        <div className="home-butts">
+            <Button variant="success" onClick={sendToLogin}>Login</Button><br></br>
+            <Button variant="success" className="make-butt" onClick={sendToCreate}>Create Account</Button>
+        </div>
     )
 }
 

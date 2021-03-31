@@ -93,3 +93,50 @@ code {
   border-bottom: solid #84824d;
   padding: 1em;
 }
+
+.login{
+  border: solid #757440;
+  padding: 2em;
+  width: 244px;
+  position: relative;
+  left: 38em;
+  border-radius: 14px;
+  background-color: #BAB86C;
+}
+
+.login-sub{
+  position: relative;
+  left: 3em;
+}
+
+.home-butts{
+  text-align: center;
+}
+
+.make-butt{
+  position: relative;
+  top: 6px
+}
+
+.edit-butt-sub{
+  position: relative;
+  top: 9px;
+}
+
+.del-cen{
+  text-align: center;
+}
+
+.comments{
+  border: solid;
+  padding: 1em;
+}
+
+.rating-p{
+  font-size: 23px;
+  border-bottom: dotted;
+}
+
+.comment-bod{
+  font-size: 20px;
+}
