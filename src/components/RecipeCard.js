@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button'
 
 const RecipeCard = ({recipe, user}) => {
     const [canCommentStatus, setCanCommentStatus] = useState(true);
+    const [isFavorite, setIsFavorite] = useState();
     const [commentFormInfo, setCommentFormInfo] = useState({
         score: "",
         comment: "",
@@ -14,7 +15,6 @@ const RecipeCard = ({recipe, user}) => {
     })
     const [commentList, setCommentList] = useState(recipe.comments.map((comment, i)=><p key={i}>{comment.username} {comment.rating} {comment.comment}</p>));
     const [averageRatingInfo, setAverageRatingInfo] = useState(null)
-
     useEffect(()=> {
         fetch(`http://localhost:3000/users/${user.id}/${recipe.id}/comments`)
             .then(r=>r.json())
@@ -28,6 +28,9 @@ const RecipeCard = ({recipe, user}) => {
                     amount: data.amount
                 })
             })
+        fetch(`http://localhost:3000/users/${user.id}/${recipe.id}/get_favorite`)
+            .then(r=>r.json())
+            .then(r=> setIsFavorite(r))
     },[])
 
     const instructions = recipe.instructions.map((step) => step);
@@ -79,6 +82,31 @@ const RecipeCard = ({recipe, user}) => {
 
     const link = `/recipes/${recipe.id}`
     
+    const handleFavorite = e => {
+        setIsFavorite((s)=>!s);
+        if (e.target.checked){
+            fetch(`http://localhost:3000/users/add_favorite`,{
+                method: "PATCH",
+                headers: {
+                    "Content-Type" : "application/json"
+                },
+                body: JSON.stringify({user: user.id, recipe: recipe.id})
+            })
+                .then(r=>r.json())
+                .then(console.log)
+        }
+        else{
+            fetch(`http://localhost:3000/users/remove_favorite`,{
+                method: "PATCH",
+                headers: {
+                    "Content-Type" : "application/json"
+                },
+                body: JSON.stringify({user: user.id, recipe: recipe.id})
+            })
+                .then(r=>r.json())
+                .then(console.log)
+        }
+    }
 
     return(
         <div className="card">
@@ -86,6 +114,8 @@ const RecipeCard = ({recipe, user}) => {
             <div className="recipe-image">
             <img src={recipe.image} alt={recipe.name}></img>
             </div>
+            favorite
+            <input type="checkbox" className="check" onChange={handleFavorite} checked={isFavorite}/>
             Calories: {recipe.calories} <br></br>
             Category: {recipe.category} <br></br>
             {recipe.description} <br></br>

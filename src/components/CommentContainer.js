@@ -46,7 +46,8 @@ function CommentContainer({user, recipe}){
         })
             .then(r=>r.json())
             .then(data=> {
-                const tempArr = <p>{data.rating} {data.comment}</p>
+                //const tempArr = <p>{data.rating} {data.comment}</p>
+                const tempArr = <div className="comments"> <p className ="rating-p">Rating: {data.rating}</p> <p className="comment-bod">{data.comment}</p> </div>
                 const temp = [...commentList, tempArr];
                 setCommentList(temp)
                 setAverageRatingInfo(s=>{

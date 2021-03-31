@@ -140,3 +140,7 @@ code {
 .comment-bod{
   font-size: 20px;
 }
+
+.check {
+  display: inline;
+}

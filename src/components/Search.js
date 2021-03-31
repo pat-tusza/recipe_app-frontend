@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
 
-const Search = ({setSearch, search, sendToCreate, setCatFilt, setIsVegan, setIsVeggie, isVegan, isVeggie }) => {
+const Search = ({handleFavorite, isFavorite, setSearch, search, sendToCreate, setCatFilt, setIsVegan, setIsVeggie, isVegan, isVeggie }) => {
     
     function handlePetaButts(e){
         if(e.target.innerText === 'Vegan'){
@@ -30,6 +30,7 @@ const Search = ({setSearch, search, sendToCreate, setCatFilt, setIsVegan, setIsV
             <br></br>
             <div className="cat-butts">
                 <Button value={''} onClick={(e)=>setCatFilt(e.target.value)} variant="success">All</Button>{' '}
+                <Button value={'favorite'} onClick={handleFavorite} variant="success">Favorites</Button>{' '}
                 <Button onClick={(e)=>handlePetaButts(e)} variant="success">Vegan</Button>{' '}
                 <Button onClick={(e)=>handlePetaButts(e)} variant="success">Vegetarian</Button>{" "}
                 <Button value={'Breakfast'} onClick={(e)=>setCatFilt(e.target.value)} variant="success">Breakfast</Button> {" "}
