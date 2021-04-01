@@ -1,4 +1,5 @@
 import React, {useState} from "react"
+import Button from 'react-bootstrap/Button'
 
 const IngredientBox = ({ingredient, addIngredient}) => {
     const [isChecked, setIsChecked] = useState(false);
@@ -15,7 +16,7 @@ const IngredientBox = ({ingredient, addIngredient}) => {
 
     const quantitySelect = <>
         <input type="number" placeholder={ingredient.unit} onChange={changeQuantity} value={quantity}/>
-        <button onClick={confirmAdd}>Add</button>
+        <Button variant="success" className="ingred-but" onClick={confirmAdd}>Add</Button>
         {console.log(ingredient)}
     </>
 
@@ -26,8 +27,8 @@ const IngredientBox = ({ingredient, addIngredient}) => {
 
     return (
         <>
-            <input id={ingredient.name} value={ingredient.name} type="checkbox" onChange={checked}/>
-            <label htmlFor={ingredient.name}>{ingredient.name}</label>
+            <input id={ingredient.name} value={ingredient.name} type="checkbox" onChange={checked}/>{''}
+            <label htmlFor={ingredient.name}>{ingredient.name}</label>{'  '}{' '}
             {isChecked ? quantitySelect : null}
         </>
     )

@@ -1,4 +1,5 @@
 import React, {useState} from "react"
+import Button from 'react-bootstrap/Button'
 
 const LoginPage = ({handleLogin,}) => {
     const [formInfo, setFormInfo] = useState({
@@ -22,8 +23,8 @@ const LoginPage = ({handleLogin,}) => {
         <div className="login">
         <form onSubmit={login}>
             <input type="text" name="username" placeholder="Username" onChange={handleChange} value={formInfo.name}/> <br></br>
-            <input type="password" name="password" placeholder="Password" onChange={handleChange} value={formInfo.password}/> <br></br>
-            <input className="login-sub" type="submit" value="Login"/> 
+            <input className="login-pass" type="password" name="password" placeholder="Password" onChange={handleChange} value={formInfo.password}/> <br></br>
+            <Button as="input" variant="success" className="login-sub" type="submit" value="Login"/> 
         </form>
         </div>
     )

@@ -107,6 +107,12 @@ code {
 .login-sub{
   position: relative;
   left: 3em;
+  top: 10px;
+}
+
+.login-pass{
+  position: relative;
+  top: 2px;
 }
 
 .home-butts{
@@ -143,6 +149,14 @@ code {
 
 .check{
   display: none
+}
+
+.new-rec{
+  padding: 5em;
+}
+
+.ingred-but{
+  height: 32px;
 }
 /* 
 .star-pic::before{

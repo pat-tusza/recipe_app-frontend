@@ -1,4 +1,5 @@
 import React, {useState} from "react"
+import Button from 'react-bootstrap/Button'
 
 const CreateAccountForm = ({handleCreateAccount}) => {
     const [createFormInfo, setCreateFormInfo] = useState({
@@ -21,15 +22,15 @@ const CreateAccountForm = ({handleCreateAccount}) => {
     }
 
     return (
-        <>
+        <div className="login">
             <form onSubmit={createAccount}>
                 <input type="text" name="username" placeholder="Username" onChange={handleCreateChange} value={createFormInfo.name}/>
-                <input type="password" name="password" placeholder="Password" onChange={handleCreateChange} value={createFormInfo.password}/>
-                <input type="password" name="confirmation" placeholder="Confirm Password" onChange={handleCreateChange} value={createFormInfo.confirmation}/>
-                <input type="text" name="avatar" placeholder="Avatar pic link" onChange={handleCreateChange} value={createFormInfo.avatar}/>
-                <input type="submit" value="Create Account"/>
+                <p></p><input type="password" name="password" placeholder="Password" onChange={handleCreateChange} value={createFormInfo.password}/>
+                <p></p><input type="password" name="confirmation" placeholder="Confirm Password" onChange={handleCreateChange} value={createFormInfo.confirmation}/>
+                <p></p><input type="text" name="avatar" placeholder="Avatar pic link" onChange={handleCreateChange} value={createFormInfo.avatar}/>
+                <p></p><Button as="input" variant= "success" type="submit" value="Create Account"/>
             </form>
-        </>
+        </div>
     )
 }
 

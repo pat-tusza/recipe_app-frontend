@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react"
 import IngredientBox from "./IngredientBox"
 import InstructionBox from "./InstructionBox"
+import Button from 'react-bootstrap/Button'
 
 const CreateRecipe = ({sendToMain}) => {
     const [ingredients, setIngredients] = useState(null)
@@ -58,7 +59,7 @@ const CreateRecipe = ({sendToMain}) => {
         }
     }
 
-    const proteinBoxes = proteins.map((protein) => <IngredientBox ingredient={protein} addIngredient={addIngredient}/>)
+    const proteinBoxes = proteins.map((protein) => <IngredientBox ingredient={protein} addIngredient={addIngredient} />)
     const veggieBoxes = veggies.map((veggie) => <IngredientBox ingredient={veggie} addIngredient={addIngredient}/>);
     const sideBoxes = sides.map((side) => <IngredientBox ingredient={side} addIngredient={addIngredient}/>);
     const ongoingIngredients = (
@@ -115,6 +116,7 @@ const CreateRecipe = ({sendToMain}) => {
             <option value="Appetizer">Appetizer</option>
             <option value="Entree">Entree</option>
             <option value="Dessert">Dessert</option>
+            <option value="Breakfast">Breakfast</option>
         </select>
     )
 
@@ -125,30 +127,35 @@ const CreateRecipe = ({sendToMain}) => {
     }
 
     const recipeDescription = (
-        <textarea placeholder="description" onChange={changeDescription} value={userDescription}/>
+        <textarea placeholder="Description" onChange={changeDescription} value={userDescription}/>
     )
 
     return (
-        <>
-        Recipe name: <input type="text" onChange={changeName} value={name} /><br></br>
+        <div className="new-rec">
+        <h2>Recipe name:</h2> 
+        <p><input type="text" onChange={changeName} value={name} /></p>
             <form onSubmit={submit}>
-                <h2>Proteins</h2>
-                {proteinBoxes}
-                <h2>Veggies</h2>
+                <h3>Proteins</h3>
+                {proteinBoxes} {' '}
+                <h3>Veggies</h3>
                 {veggieBoxes}
-                <h2>Sides</h2>
+                <h3>Sides</h3>
                 {sideBoxes}
-                Picture Link: <input type="text" onChange={handlePicture} value={userPicture}/><br></br>
-                Category: {categorySelect}<br></br>
-                Description: {recipeDescription}<br></br>
-                <input type="submit" value="Submit Recipe"/>
+                <h3>Picture Link: </h3>
+                <p><input type="text" onChange={handlePicture} value={userPicture}/></p>
+                <h3>Category:</h3> 
+                <p>{categorySelect}</p>
+                <h3>Description:</h3> 
+                <p>{recipeDescription}</p>
+                <Button as="input" variant="success" type="submit" value="Submit Recipe"/>
             </form>
+            <br></br>
             <h2>Instructions</h2>
             {instructions}<br></br>
-            <button onClick={addInstruction}>Add an Instruction</button>
-            <h2>current</h2>
+            <Button variant="success" onClick={addInstruction}>Add an Instruction</Button>
+            <p><h2>Current Items:</h2></p>
             {ongoingRecipe}
-        </>
+        </div>
     )
 }
 

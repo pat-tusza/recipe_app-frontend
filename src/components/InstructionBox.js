@@ -1,4 +1,5 @@
 import React, {useState} from "react"
+import Button from 'react-bootstrap/Button'
 
 const InstructionBox = ({createInstruction}) => {
 
@@ -18,8 +19,8 @@ const InstructionBox = ({createInstruction}) => {
 
     return(
         <>
-            {showText ? <textarea placeholder="instruction" onChange={textChange} value={theInstruction}/> : null } 
-            {showButton? <button onClick={handleClick}>add</button> : null}
+            {showText ? <textarea placeholder="Instruction" onChange={textChange} value={theInstruction}/> : null } 
+            {showButton? <p><Button variant="success" onClick={handleClick}>Add</Button></p> : null}
         </>
     )
 }
