@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react"
 import { Link } from "react-router-dom"
 import CommentContainer from "react"
 import Button from 'react-bootstrap/Button'
+import offStar from './offStar.png'
+import onStar from './onStar.png'
 
 
 const RecipeCard = ({recipe, user}) => {
@@ -114,8 +116,10 @@ const RecipeCard = ({recipe, user}) => {
             <div className="recipe-image">
             <img src={recipe.image} alt={recipe.name}></img>
             </div>
-            favorite
-            <input type="checkbox" className="check" onChange={handleFavorite} checked={isFavorite}/>
+            {isFavorite ? <label className="star-pic" htmlFor= {recipe.name}> <img src={onStar}/> </label> : <label className="star-pic" htmlFor= {recipe.name}> <img src={offStar}/> </label>}
+            <div className="star">
+            <input id={recipe.name} type="checkbox" className="check" onChange={handleFavorite} checked={isFavorite}/>
+            </div>
             Calories: {recipe.calories} <br></br>
             Category: {recipe.category} <br></br>
             {recipe.description} <br></br>

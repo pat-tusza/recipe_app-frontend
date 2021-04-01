@@ -141,24 +141,35 @@ code {
   font-size: 20px;
 }
 
-input[type=checkbox] {
+.check{
+  display: none
+}
+/* 
+.star-pic::before{
+  content: url("offStar.png");
+}
+
+:checked + .star-pic:after{
+  content: url("onStar2.png"); */
+
+/* .star input[type=checkbox] {
   display:none;
 }
 
-input[type=checkbox] + label
+.star input[type=checkbox] 
  {
-     background: #999;
+    background-image: "../images/offStar.png";
      height: 16px;
      width: 16px;
      display:inline-block;
      padding: 0 0 0 0px;
  }
  
- input[type=checkbox]:checked + label
+ .star input[type=checkbox]:checked
   {
-      background: #0080FF;
+      background-image: "../images/onStar.png";
       height: 16px;
       width: 16px;
       display:inline-block;
       padding: 0 0 0 0px;
-  }
+  } */

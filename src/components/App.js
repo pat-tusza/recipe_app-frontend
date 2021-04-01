@@ -110,7 +110,10 @@ function App() {
   const sendToCreate = () => history.push("/create_account")
   const sendToEditPassword = () => history.push("/edit_password")
   const sendToCreateRecipe = () => history.push("/create_recipe")
-  const sendToMain = () => history.push("/main")
+  const sendToMain = () => {
+    history.push("/main")
+    setFlipState((s)=>!s)
+  }
 
   const editPassword = (data) => {
     fetch(`http://localhost:3000/edit_password/${currentUser.id}`,{

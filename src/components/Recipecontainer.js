@@ -69,7 +69,8 @@ const RecipeContainer = ({flipState, setFlipState, user, sendToCreate}) =>{
             setIsVegan={setIsVegan}
             setIsVeggie={setIsVeggie} 
             isVegan={isVegan}
-            isVeggie={isVeggie}/>
+            isVeggie={isVeggie}
+            catFilt={catFilt}/>
             <ul className="cards">{toDisplay}</ul>
             <br></br><br></br>
         </> 
