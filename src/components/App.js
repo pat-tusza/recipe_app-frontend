@@ -49,7 +49,7 @@ function App() {
           localStorage.setItem("user", result.user)
           localStorage.setItem("token", result.token)
         }else{
-          console.log(result)
+          alert(result)
         }
       })
   }
@@ -70,7 +70,7 @@ function App() {
           localStorage.setItem("user", result.user)
           localStorage.setItem("token", result.token)
         }else{
-          console.log(result)
+          alert(result)
         }
       })
   }
@@ -123,7 +123,11 @@ function App() {
       .then(r=> r.json())
       .then(result => {
           console.log(result);
-          history.push("/main")
+          if (result === true){
+            history.push("/main");
+          }else{
+            alert(result)
+          }
       })
   }
 
