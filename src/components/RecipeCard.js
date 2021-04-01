@@ -123,7 +123,7 @@ const RecipeCard = ({recipe, user}) => {
             Calories: {recipe.calories} <br></br>
             Category: {recipe.category} <br></br>
             {recipe.description} <br></br>
-            {instructions}
+            
             
             <Link to={link}> Full Recipe </Link>
         

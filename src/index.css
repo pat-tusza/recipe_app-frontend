@@ -36,8 +36,8 @@ code {
 
 .recipe-image img {
   width: 100%;
-  width: 250px;
-  height: 200px;
+  max-width: 250px;
+  max-height: 200px;
   border: 3px solid #84824d;
   border-radius: 4px;
 }
@@ -157,6 +157,10 @@ code {
 
 .ingred-but{
   height: 32px;
+}
+
+.rec-body{
+  padding: 3em;
 }
 /* 
 .star-pic::before{

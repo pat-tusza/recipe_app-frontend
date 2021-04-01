@@ -48,6 +48,7 @@ function RecipePage( {user} ) {
             <h1>{name}</h1>
             <img src={image} alt={description}/>
             <br></br>
+            <div className="rec-body">
             <p>Category: {category}</p>
             <p>{description}</p>
             <p>Ingredients</p>
@@ -63,6 +64,7 @@ function RecipePage( {user} ) {
             <CommentContainer 
             user={user}
             recipe={pageRecipe}/>
+            </div>
         </div>
     )
 }
